@@ -99,6 +99,6 @@ function windowResized() {
     const width = sketchHolder.offsetWidth;
     const height = sketchHolder.offsetHeight > 0 ? sketchHolder.offsetHeight : width;
     resizeCanvas(width, height);
-    background(255); // Redraw background on resize
+    background(255); // Redraw background on resize for light theme
     reset(); // Reset the mobiles for the new canvas size
 }

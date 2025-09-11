@@ -1,11 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Sample Post</title>
-    <link rel="stylesheet" href="../styles.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sample Post - Jaehun Baek</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <script src="https://cdn.jsdelivr.net/npm/p5@1.11.2/lib/p5.min.js"></script>
+    <script src="../perlin-lines.js"></script>
+
+    <!-- Style Links -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Merriweather:ital,opsz,wght@0,18..144,300..900;1,18..144,300..900&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="../styles.css">
 </head>
+
 <body class="overflow-y-scroll">
     <div class="flex min-h-screen">
         <div class="bg-white flex flex-col fixed w-2/5 h-screen">
@@ -16,14 +28,13 @@
                 <h1 class="mb-3 text-5xl font-lora">Jaehun Baek</h1>
                 <nav class="text-lg">
                     <ul>
-                        <li><a href="#" class="hover:underline">Resume</a></li>
-                        <li><a href="#" class="hover:underline">LinkedIn</a></li>
-                        <li><a href="#" class="hover:underline">GitHub</a></li>
+                        <li><a href="../assets/jb-resume.pdf" target="_blank" class="hover:underline">Resume</a></li>
+                        <li><a href="http://www.linkedin.com/in/jaehunbaek" aria-label="LinkedIn" class="hover:underline">LinkedIn</a>
+                        <li><a href="https://github.com/jaeHbk" aria-label="GitHub" class="hover:underline">GitHub</a></li>
                     </ul>
                 </nav>
             </div>
         </div>
-
         <main class="p-5 ml-[40%] w-3/5">
             <article class="w-10/12 max-w-5xl mx-auto mb-8 overflow-x-auto relative">
                 <header class="mb-4">
@@ -41,4 +52,5 @@
         </main>
     </div>
 </body>
+
 </html>
