@@ -3,7 +3,7 @@ remote_theme: "mmistakes/minimal-mistakes"
 plugins:
   - jekyll-include-cache
 
-title: "Jaehun Baek | CS @ Georgia Tech"
+title: "Jaehun Baek"
 description: "Personal website of Jaehun Baek, a Computer Science student at Georgia Tech."
 
 author:
