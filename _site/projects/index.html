@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Projects • Jaehun Baek</title>
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+  <!-- Fonts and site stylesheet to match index.html -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Merriweather:ital,opsz,wght@0,18..144,300..900;1,18..144,300..900&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles.css">
+</head>
+<body class="overflow-y-scroll">
+  <div class="p-5 w-full">
+    <section class="w-10/12 max-w-5xl mx-auto mb-8">
+      <div class="flex items-baseline justify-between">
+        <h1 class="text-4xl font-lora">Projects</h1>
+        <a href="../index.html" class="text-blue-500 hover:underline text-sm">← Back to home</a>
+      </div>
+      <p class="text-gray-600 mt-2">A deeper look at selected projects.</p>
+    </section>
+
+    <!-- Projects Grid -->
+    <section class="w-10/12 max-w-5xl mx-auto mb-12">
+      <div class="grid gap-6 md:grid-cols-2">
+        <!-- Qwerty -->
+        <article class="relative border border-gray-200 rounded-2xl p-4 shadow-lg bg-white/60 backdrop-blur-md">
+          <div class="flex flex-col">
+            <img src="../assets/project_img/qwerty_preview.png" alt="Qwerty preview" class="w-full h-56 object-cover rounded-lg mb-4 bg-gray-200" loading="lazy" />
+            <h2 class="text-2xl font-semibold mb-1">
+              <a href="https://github.com/jaeHbk/qwerty" class="text-blue-500 hover:underline">Qwerty</a>
+            </h2>
+            <p class="text-sm mb-3">Worked on a quantum compiler.</p>
+            <div class="text-sm text-gray-400">Built with: <span class="text-blue-500 hover:underline">MLIR</span>, <span class="text-blue-500 hover:underline">LLVM</span>, <span class="text-blue-500 hover:underline">CMake</span>, <span class="text-blue-500 hover:underline">C++</span></div>
+          </div>
+        </article>
+
+        <!-- Nomad -->
+        <article class="relative border border-gray-200 rounded-2xl p-4 shadow-lg bg-white/60 backdrop-blur-md">
+          <div class="flex flex-col">
+            <img src="../assets/project_img/nomad_preview.png" alt="Nomad preview" class="w-full h-56 object-cover rounded-lg mb-4 bg-gray-200" loading="lazy" />
+            <h2 class="text-2xl font-semibold mb-1">
+              <a href="https://github.com/gtiosclub/Nomad" class="text-blue-500 hover:underline">Nomad</a>
+            </h2>
+            <p class="text-sm mb-3">Implemented MapKit and optimal route calculation based on user's customized route.</p>
+            <div class="text-sm text-gray-400">Built with: <span class="text-blue-500 hover:underline">Swift</span>, <span class="text-blue-500 hover:underline">MapKit</span></div>
+          </div>
+        </article>
+
+        <!-- Agricultural Productivity Forecast -->
+        <article class="relative border border-gray-200 rounded-2xl p-4 shadow-lg bg-white/60 backdrop-blur-md">
+          <div class="flex flex-col">
+            <img src="../assets/project_img/agriculture_preview.png" alt="Agricultural Productivity Forecast preview" class="w-full h-56 object-cover rounded-lg mb-4 bg-gray-200" loading="lazy" />
+            <h2 class="text-2xl font-semibold mb-1">
+              <a href="#" class="text-blue-500 hover:underline">Agricultural Productivity Forecast</a>
+            </h2>
+            <p class="text-sm mb-3">
+                <strong>Frontend (Google Maps API)</strong>
+                <ul class="list-disc list-outside mb-3 ml-5">
+                    <li>The user interacts with a frontend that enables selection of a bounding box region.</li>
+                </ul>
+            </p>
+
+            <p class="text-sm mb-3">
+                <strong>Backend Service</strong>
+                
+                <ul class="list-disc list-outside mb-4 ml-5">
+                    <li>Tiling Module (tiling.py): Reads tiling data (from a text file) and computes intersections with the selected geographic area.</li>
+                    <li>Product Query Module (productquery.py): Queries the Copernicus Data Catalogue (via the OData API) for products matching the area, date (including day filtering), and cloud cover criteria.</li>
+                    <li>Download Module (S3 Download): Uses the temporary S3 credentials retrieved via the S3 Keys Manager Service to download satellite imagery from the EO Data S3 storage using boto3.</li>
+                    <li>ML Model Analysis Module: After downloading, the imagery can be processed by ML models for analysis.</li>
+                </ul>
+            </p>
+
+            <p class="text-sm mb-3">
+                <strong>External Services</strong>
+                <ul class="list-disc list-outside mb-4 ml-5">
+                    <li>Copernicus Data Catalogue (OData API): Provides product metadata based on geographic and temporal queries.</li>
+                    <li>Authentication Server (CDSE Identity): Provides access tokens required for querying product metadata and obtaining S3 credentials.</li>
+                    <li>S3 Keys Manager Service: Issues temporary S3 credentials.</li>
+                    <li>EO Data Storage (S3): Stores the satellite imagery that is downloaded.</li>
+                </ul>
+            </p>
+
+            <p class="text-sm mb-3">
+                <strong>Local Storage</strong>
+                <ul class="list-disc list-outside mb-4 ml-5">
+                    <li>Downloaded imagery is saved into a local folder structure, organized by year, month, and tile, which can then be passed to downstream processes (e.g., ML analysis).</li>
+                </ul>
+            </p>
+
+            <div class="text-sm text-gray-400">Built with: <span class="text-blue-500 hover:underline">Python</span>, <span class="text-blue-500 hover:underline">AWS</span>, <span class="text-blue-500 hover:underline">EOData API</span></div>
+          </div>
+        </article>
+
+        <!-- Placeholder projects copied from main (if any remain) -->
+        <article class="relative border border-gray-200 rounded-2xl p-4 shadow-lg bg-white/60 backdrop-blur-md">
+          <div class="flex flex-col">
+            <img src="https://via.placeholder.com/800x400?text=Project" alt="Project preview" class="w-full h-56 object-cover rounded-lg mb-4 bg-gray-200" loading="lazy" />
+            <h2 class="text-2xl font-semibold mb-1"><a href="#" class="text-blue-500 hover:underline">Project</a></h2>
+            <p class="text-sm mb-3">A short description of the project goes here.</p>
+            <div class="text-sm text-gray-400">Built with: <span class="text-blue-500 hover:underline">HTML</span>, <span class="text-blue-500 hover:underline">CSS</span>, <span class="text-blue-500 hover:underline">JavaScript</span></div>
+          </div>
+        </article>
+      </div>
+    </section>
+  </div>
+</body>
+</html>

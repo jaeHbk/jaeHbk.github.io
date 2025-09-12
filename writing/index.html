@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Writing • Jaehun Baek</title>
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+  <!-- Fonts and site stylesheet to match index.html -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Merriweather:ital,opsz,wght@0,18..144,300..900;1,18..144,300..900&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles.css">
+</head>
+<body class="overflow-y-scroll">
+  <div class="p-5 w-full">
+    <section class="w-10/12 max-w-5xl mx-auto mb-8">
+      <div class="flex items-baseline justify-between">
+        <h1 class="text-4xl font-lora">Writing</h1>
+        <a href="../index.html" class="text-blue-500 hover:underline text-sm">← Back to home</a>
+      </div>
+      <p class="text-gray-600 mt-2">Articles and notes.</p>
+    </section>
+
+    <!-- Writing Grid -->
+    <section class="w-10/12 max-w-5xl mx-auto mb-12">
+      <div class="grid gap-6 md:grid-cols-3">
+        <!-- Article 1 -->
+        <article class="border border-gray-300 rounded-lg p-4 transition transform hover:shadow-lg hover:bg-gray-100 cursor-pointer">
+          <div class="flex flex-col h-full">
+            <h2 class="text-lg mb-1 font-semibold">
+              <a href="vsip-part1.html" class="text-blue-500 hover:underline">Modernizing Quantum Compiler (Part 1)</a>
+            </h2>
+            <p class="text-sm mb-2">It was summer.</p>
+            <p class="text-sm text-gray-400 mt-auto">July 11, 2025</p>
+          </div>
+        </article>
+
+        <!-- Article 2 -->
+        <article class="border border-gray-300 rounded-lg p-4 transition transform hover:shadow-lg hover:bg-gray-100 cursor-pointer">
+          <div class="flex flex-col h-full">
+            <h2 class="text-lg mb-1 font-semibold">
+              <a href="vsip-part2.html" class="text-blue-500 hover:underline">Custom Dialect in MLIR (Part 2)</a>
+            </h2>
+            <p class="text-sm mb-2">Read more.</p>
+            <p class="text-sm text-gray-400 mt-auto">August 15, 2025</p>
+          </div>
+        </article>
+      </div>
+    </section>
+  </div>
+</body>
+</html>
