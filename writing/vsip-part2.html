@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Qwerty: Building a Custom MLIR Dialect (Part 2)</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <script src="https://cdn.jsdelivr.net/npm/p5@1.11.2/lib/p5.min.js"></script>
+    <script src="../perlin-lines.js"></script>
+
+    <!-- Style Links -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Merriweather:ital,opsz,wght@0,18..144,300..900;1,18..144,300..900&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="overflow-y-scroll">
+    <div class="flex min-h-screen">
+        <div class="bg-white flex flex-col fixed w-2/5 h-screen">
+            <a href="../index.html">
+                <div id="sketch-holder" class="m-0 p-0"></div>
+            </a>
+            <div class="p-5">
+                <h1 class="mb-3 text-5xl font-lora">Jaehun Baek</h1>
+                <nav class="text-lg">
+                    <ul>
+                        <li><a href="../assets/jb-resume.pdf" target="_blank" class="hover:underline">Resume</a></li>
+                        <li><a href="http://www.linkedin.com/in/jaehunbaek" aria-label="LinkedIn" class="hover:underline">LinkedIn</a>
+                        <li><a href="https://github.com/jaeHbk" aria-label="GitHub" class="hover:underline">GitHub</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        <main class="p-5 ml-[40%] w-3/5">
+            <article class="w-10/12 max-w-5xl mx-auto mb-8 overflow-x-auto relative">
+                <header class="mb-4">
+                    <h1 class="text-3xl font-lora mb-2">Qwerty: Building a Custom MLIR Dialect (Part 2)</h1>
+                    <p class="text-sm text-gray-400">September 12, 2025</p>
+                </header>
+                <section class="text-base">
+                    <p class="mb-4">In the first part of this series, I detailed the initial phase of my internship: modernizing the Qwerty quantum programming language compiler. The project's central goal was to replace an external C++ library, Tweedledum, with a modern, integrated compiler pipeline built using MLIR. After successfully upgrading the project's LLVM dependency and learning the fundamentals of compiler architecture, the next phase of the project began: designing and implementing a brand-new MLIR dialect from the ground up.</p>
+
+                    <p class="mb-4">This article documents that process—the creation of <strong><code>CCirc</code></strong>, a custom MLIR dialect designed specifically to represent classical logic circuits within the Qwerty compiler.</p>
+
+                    <hr class="my-4 border-gray-300">
+
+                    <h2 class="text-2xl font-lora mb-2">Designing the <code>CCirc</code> Dialect</h2>
+
+                    <p class="mb-4">The first step was to define the language of our new dialect. An MLIR dialect is composed of a set of custom <strong>types</strong> and <strong>operations (ops)</strong> that represent the concepts specific to its domain. For <code>CCirc</code>, the domain was classical boolean logic. The design was captured in a formal specification document.</p>
+
+                    <h4 class="text-xl font-lora mb-2">Custom Types</h4>
+
+                    <p class="mb-4">To ensure that classical circuit components could not be accidentally mixed with components from other dialects (like quantum operations or standard arithmetic), we defined a set of strongly-typed constructs.</p>
+
+                    <ul class="list-disc list-outside mb-4 ml-5">
+                        <li><strong><code>WireType</code></strong>: This represents a single, one-bit classical wire. It is the most fundamental type in the dialect. We deliberately avoided using MLIR's built-in <code>i1</code> (one-bit integer) type to enforce domain separation and prevent logical errors.</li>
+                        <li><strong><code>WireBundleType</code></strong>: This represents a collection of <code>WireType</code>s, analogous to a bus in digital logic. It contains a parameter, <code>dim</code>, to specify the number of wires in the bundle.</li>
+                        <li><strong><code>CircuitType</code></strong>: This type is associated with a complete circuit operation. It defines the circuit's interface by specifying the dimensions of its input and output bundles (<code>in_dim</code> and <code>out_dim</code>).</li>
+                    </ul>
+
+                    <h4 class="text-xl font-lora mb-2">Custom Operations</h4>
+
+                    <p class="mb-4">With the types defined, we specified the operations that could be performed on them. These ops are the building blocks of any circuit constructed with <code>CCirc</code>.</p>
+
+                    <ul class="list-disc list-outside mb-4 ml-5">
+                        <li><strong>Logical Ops</strong>: These are the fundamental boolean gates. Each was defined to operate on <code>WireType</code> inputs and produce a <code>WireType</code> output.
+                            <ul class="list-disc list-outside ml-5">
+                                <li><code>AndOp</code>: Bitwise AND.</li>
+                                <li><code>OrOp</code>: Bitwise OR.</li>
+                                <li><code>XorOp</code>: Bitwise XOR.</li>
+                                <li><code>NotOp</code>: Bitwise NOT.</li>
+                            </ul>
+                        </li>
+                        <li><strong>Structural Ops</strong>: These operations manage the structure of wires and circuits.
+                            <ul class="list-disc list-outside ml-5">
+                                <li><code>WireBundlePackOp</code>: Takes a variable number of individual <code>WireType</code>s and groups them into a single <code>WireBundleType</code>.</li>
+                                <li><code>WireBundleUnpackOp</code>: Performs the reverse operation, breaking a <code>WireBundleType</code> back into its constituent <code>WireType</code>s.</li>
+                                <li><code>CircuitOp</code>: A top-level operation that defines a complete, reusable circuit with a well-defined entry and exit point, containing a region of other <code>CCirc</code> ops.</li>
+                            </ul>
+                        </li>
+                    </ul>
+
+                    <hr class="my-4 border-gray-300">
+
+                    <h2 class="text-2xl font-lora mb-2">Implementation: From Specification to Code</h2>
+
+                    <p class="mb-4">Defining a dialect in MLIR is streamlined by a tool called <strong>TableGen</strong>. Instead of writing large amounts of repetitive C++ boilerplate code, developers use TableGen to provide a high-level, declarative description of the dialect's components. MLIR uses these descriptions to auto-generate the necessary C++ classes.</p>
+
+                    <p class="mb-4">For example, this is the TableGen definition for the <code>NotOp</code>:</p>
+
+                    <pre class="bg-gray-100 p-3 rounded mb-4 overflow-x-auto"><code>def CCirc_NotOp : CCirc_Op&lt;"not", [Pure]&gt; {
+    let summary = "Logical NOT operation";
+    let description = [{
+        Bitwise NOT on a single wire.
+    }];
+    let arguments = (ins CCirc_Wire:$operand);
+    let results = (outs CCirc_Wire:$result);
+    let assemblyFormat = "`(` $operand `)` attr-dict `:` functional-type(operands, results)";
+}
+</code></pre>
+
+                    <p class="mb-4">An analysis of this definition reveals how it works:</p>
+                    <ul class="list-disc list-outside mb-4 ml-5">
+                        <li><code>def CCirc_NotOp</code>: Defines a C++ class named <code>CCirc_NotOp</code>.</li>
+                        <li><code>CCirc_Op&lt;"not", [Pure]&gt;</code>: Specifies that this is a <code>CCirc</code> op. Its name in the textual IR will be "<code>ccirc.not</code>". The <code>[Pure]</code> trait indicates that the operation has no side effects, which helps the optimizer.</li>
+                        <li><code>arguments</code> and <code>results</code>: These lines define the operation's signature. It takes one input (<code>$operand</code>) of type <code>CCirc_Wire</code> and produces one output (<code>$result</code>) of the same type.</li>
+                        <li><code>assemblyFormat</code>: This defines the human-readable syntax for the operation when it's printed in a <code>.mlir</code> file, enhancing readability and debugging.</li>
+                    </ul>
+
+                    <hr class="my-4 border-gray-300">
+
+                    <h2 class="text-2xl font-lora mb-2">Adding Intelligence: The Canonicalizer Pass</h2>
+
+                    <p class="mb-4">A key part of building a robust dialect is adding optimization patterns. The first such optimization I implemented was a <strong>canonicalization pattern</strong> for <code>NotOp</code> to remove double negations. Canonicalization is a process that simplifies IR into a standard, or "canonical," form. In this case, any instance of <code>not(not(x))</code> should be simplified directly to <code>x</code>.</p>
+
+                    <p class="mb-4">The implementation involved three steps:</p>
+                    <ol class="list-decimal list-outside mb-4 ml-5">
+                        <li><strong>Enabling the Pattern</strong>: In the TableGen file for <code>NotOp</code>, the <code>hasCanonicalizer = 1;</code> flag was set, signaling to MLIR that this operation has simplification patterns associated with it.</li>
+                        <li><strong>Implementing the Rewrite Logic</strong>: A C++ struct was created that inherits from <code>mlir::OpRewritePattern</code>. This struct contains the core logic: it attempts to match a <code>NotOp</code> whose input is also a <code>NotOp</code>. If this pattern is found, it tells the rewriter to replace the entire double-negation operation with the original input of the inner <code>NotOp</code>.</li>
+                        <li><strong>Registering the Pattern</strong>: A method named <code>getCanonicalizationPatterns()</code> was implemented for the <code>NotOp</code> class. This method registers the C++ rewrite pattern with the MLIR framework, making it available to the canonicalizer pass.</li>
+                    </ol>
+
+                    <p class="mb-4">To validate this optimization, a <code>FileCheck</code> test was created. This test contained an IR snippet with a double negation and checked that after running the canonicalizer pass, the output IR was correctly simplified. This test-driven approach ensures that optimizations are both correct and effective.</p>
+
+                    <h2 class="text-2xl font-lora mb-2">Next Steps</h2>
+
+                    <p class="mb-4">With the <code>CCirc</code> dialect designed, implemented, and equipped with its first optimization, Milestone 2 of the project was complete. The compiler now had a native language for representing classical circuits.</p>
+
+                    <p class="mb-4">The final and most critical step remains: connecting Qwerty's frontend AST to this new dialect. The third and final part of this series will cover the implementation of the "lowering" pass, which translates the classical components of a Qwerty program into the <code>CCirc</code> dialect, completing the replacement of the old backend and fulfilling the project's primary objective.</p>
+                </section>
+                <footer class="mt-auto">
+                    <a href="../index.html" class="text-blue-500 hover:underline">Back to Home</a>
+                </footer>
+            </article>
+        </main>
+    </div>
+</body>
+</html>

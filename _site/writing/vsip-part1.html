@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sample Post - Jaehun Baek</title>
+    <title>Qwerty part 1</title>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <script src="https://cdn.jsdelivr.net/npm/p5@1.11.2/lib/p5.min.js"></script>
     <script src="../perlin-lines.js"></script>
@@ -43,7 +43,7 @@
                 </header>
                 <section class="text-base">
                     <p class="mb-4">
-                        This summer, I had the incredible opportunity to work as an intern 
+                        This summer, I had the incredible opportunity to work as an Undergraduate Research Assistant 
                         through the Georgia Tech Open Source Program Office's Virtual Summer Internship Program. 
                         The program pairs students with exciting open-source projects, and I was matched with 
                     </p>
@@ -110,9 +110,10 @@
                     </p>
 
                     <p class="mb-4">
-                        This was a deep dive into the codebase to find and resolve any compatibility issues. 
-                        I spent the initial weeks building LLVM locally on my machine to create a testing environment. 
-                        Then, the real work began. I relied heavily on a few powerful Git commands to perform a sweeping find-and-replace across the entire project:
+                        This was more than just changing a version number in a file. It was a deep dive into the codebase 
+                        to find and resolve any compatibility issues. I spent the initial weeks building LLVM locally 
+                        on my machine to create a testing environment. Then, the real work began. I relied heavily on a few powerful 
+                        Git commands to perform a sweeping find-and-replace across the entire project:
                         <ul class="list-disc list-outside mb-4 ml-5">
                             <li><code>git grep</code>: This command became my best friend, allowing me to search the entire 
                                 repository for every instance of the old version number and other deprecated code.
@@ -137,13 +138,15 @@
                         code after it has been parsed but before it's converted to machine code. MLIR is a framework for creating these IRs.
                     </p>
 
-                    <h2>Learning the Language of Compilers</h2>
+                    <h3>Learning the Language of Compilers</h3>
 
                     <p class="mb-4">Upgrading LLVM wasn't just a mechanical task of find-and-replace; 
-                        it was an immersion into the very heart of compiler engineering. 
+                        it was a deep-dive immersion into the very heart of compiler engineering. 
                         To work on a project of this scale, I had to learn the tools and concepts 
                         that developers use to manage complexity and squeeze out every drop of performance.
                     </p>
+
+                    <hr class="my-4 border-gray-300">
 
                     <h4 class="text-xl font-lora mb-2">The Build System: CMake and Ninja</h4>
 
@@ -177,7 +180,7 @@
 
                     <p class="mb-4">In the eyes of the compiler, every piece of the IR—every instruction, every variable type—is a distinct 'object'. This structured view is what allows the compiler to perform powerful analyses and optimizations on the code.</p>
 
-                    <h4 class="text-xl font-lora mb-2">Dataflow Analysis</h4>
+                    <h4 class="text-xl font-lora mb-2">Dataflow Analysis: Understanding the Code's Journey</h4>
 
                     <p class="mb-4">One of the most powerful analyses a compiler performs is called <strong>dataflow analysis</strong>. The best analogy I learned is to think of it like tracing variables in your head as you read a function. The compiler does the same thing, but with mathematical rigor.</p>
 
@@ -187,7 +190,7 @@ y = x + 2;
 z = 7;</code></pre>
                     <p class="mb-4">Through dataflow analysis, the compiler can determine that <code>y</code> will always be <code>7</code>. This allows it to perform optimizations like "constant propagation," replacing <code>y</code> with <code>7</code> everywhere else in the program, making the code smaller and faster.</p>
 
-                    <h4 class="text-xl font-lora mb-2">LLVM's Custom Type Casting</h4>
+                    <h4 class="text-xl font-lora mb-2">A Lesson in Performance: LLVM's Custom Type Casting</h4>
 
                     <p class="mb-4">In a compiler, you are constantly working with different kinds of IR "objects." You might have a pointer to an object and need to know, "Is this an addition instruction? Is it a qubit type? Is it something else?"</p>
 
@@ -200,11 +203,7 @@ z = 7;</code></pre>
                         <li><code>llvm::dyn_cast&lt;Type&gt;(obj)</code>: This is the safe, dynamic cast. It checks the type and, if it matches, returns a valid pointer. If it doesn't match, it returns a null pointer. This is the most common and safest choice when you're not 100% certain of an object's type.</li>
                     </ul>
 
-                    <p class="mb-4">
-                        Creating a custom, high-speed type-checking system was a great illustration of the 
-                        performance-first mindset that exists in compiler development. 
-                        It showed me that even the smallest details matter.
-                    </p>
+                    <p class="mb-4">This attention to detail—creating a custom, high-speed type-checking system—was a perfect illustration of the performance-first mindset that permeates compiler development. It showed me that in this field, even the smallest details matter.</p>
 
 
                 </section>
