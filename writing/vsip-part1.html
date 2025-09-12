@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sample Post - Jaehun Baek</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <script src="https://cdn.jsdelivr.net/npm/p5@1.11.2/lib/p5.min.js"></script>
+    <script src="../perlin-lines.js"></script>
+
+    <!-- Style Links -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Merriweather:ital,opsz,wght@0,18..144,300..900;1,18..144,300..900&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="overflow-y-scroll">
+    <div class="flex min-h-screen">
+        <div class="bg-white flex flex-col fixed w-2/5 h-screen">
+            <a href="../index.html">
+                <div id="sketch-holder" class="m-0 p-0"></div>
+            </a>
+            <div class="p-5">
+                <h1 class="mb-3 text-5xl font-lora">Jaehun Baek</h1>
+                <nav class="text-lg">
+                    <ul>
+                        <li><a href="../assets/jb-resume.pdf" target="_blank" class="hover:underline">Resume</a></li>
+                        <li><a href="http://www.linkedin.com/in/jaehunbaek" aria-label="LinkedIn" class="hover:underline">LinkedIn</a>
+                        <li><a href="https://github.com/jaeHbk" aria-label="GitHub" class="hover:underline">GitHub</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        <main class="p-5 ml-[40%] w-3/5">
+            <article class="w-10/12 max-w-5xl mx-auto mb-8 overflow-x-auto relative">
+                <header class="mb-4">
+                    <h1 class="text-3xl font-lora mb-2">Qwerty: Modernizing a Quantum Compiler (Part 1)</h1>
+                    <p class="text-sm text-gray-400">September 11, 2025</p>
+                </header>
+                <section class="text-base">
+                    <p class="mb-4">
+                        This summer, I had the incredible opportunity to work as an Undergraduate Research Assistant 
+                        through the Georgia Tech Open Source Program Office's Virtual Summer Internship Program. 
+                        The program pairs students with exciting open-source projects, and I was matched with 
+                    </p>
+
+                    <p class="mb-4">
+                        Qwerty, a high-level quantum programming language designed to make quantum programming more 
+                        intuitive by abstracting away low-level circuit details. My mission for the summer was ambitious: to help 
+                        modernize Qwerty's compiler by replacing a key component and diving headfirst into the world of modern 
+                        compiler architecture.
+                    </p>
+
+                    <p class="mb-4">
+                        This article is the first in a series where I'll document my journey—the challenges I faced, 
+                        the concepts I learned, and the contributions I made.
+                    </p>
+
+                    <h2 class="text-2xl font-lora mb-2">Overhauling the Compiler's Classical Path</h2>
+
+                    <p class="mb-4">Every compiler's job is to translate human-readable source code into machine-executable 
+                        instructions. In Qwerty, this process involves handling both quantum and classical computations. 
+                        The project's primary goal was to modernize how the compiler handles the classical parts of a Qwerty program.
+                        Previously, the compiler relied on an external C++ library called Tweedledum to synthesize classical circuits. 
+                        The workflow looked like this:
+                        <ul class="list-disc list-outside mb-4 ml-5">
+                            <li><b>Old Flow</b>: Qwerty classical AST → Tweedledum Library → Synthesized Circuit </li>
+                        </ul>
+                    </p>
+
+                    <p class="mb-4">
+                        While functional, this approach had its limits. Relying on an external library made the compiler 
+                        less modular and harder to optimize. The summer project aimed to replace this with a modern, 
+                        integrated pipeline using MLIR, a powerful compiler infrastructure from the LLVM project.
+                    </p>
+
+                    <p class="mb-4">
+                        The new, improved flow would be:
+                        <ul class="list-disc list-outside mb-4 ml-5">
+                            <li><b>New Flow</b>: New Flow: Qwerty classical AST → Ccirc Dialect (MLIR) → Optimizations → LLVM IR</li>
+                        </ul>
+                    </p>
+
+                    <p class="mb-4">
+                        This change would bring the entire process inside our compiler, giving us more control and opening the door 
+                        for new optimizations. To get there, however, we first needed to understand the tools of the trade: LLVM and MLIR.
+                        <ul class="list-disc list-outside mb-4 ml-5">
+                            <li><b>LLVM</b> is a foundational set of reusable compiler and toolchain technologies. 
+                                It provides the low-level "backend" for many of the world's most popular compilers.
+                            </li>
+                            <li><b>MLIR (Multi-Level Intermediate Representation)</b>  is a framework built 
+                                on top of LLVM to make building new compilers easier. It's like a toolkit
+                                for creating custom languages, or <b>"dialects,"</b>that can represent complex program logic. 
+                                For us, using MLIR was an engineering convenience that would allow us to define our own classical 
+                                circuit logic and have it integrate seamlessly with the rest of the LLVM ecosystem.
+                            </li>
+                        </ul>
+                    </p>
+
+                    <h2 class="text-2xl font-lora mb-2">Milestone 1: LLVM Upgrade</h2>
+
+                    <p class="mb-4">
+                        Before we could build anything new, we had to get the house in order. 
+                        The first milestone was a foundational one: upgrading Qwerty's LLVM dependency from 
+                        version 19.1.6 to a more recent stable release, 20.1.6.
+                    </p>
+
+                    <p class="mb-4">
+                        This was more than just changing a version number in a file. It was a deep dive into the codebase 
+                        to find and resolve any compatibility issues. I spent the initial weeks building LLVM locally 
+                        on my machine to create a testing environment. Then, the real work began. I relied heavily on a few powerful 
+                        Git commands to perform a sweeping find-and-replace across the entire project:
+                        <ul class="list-disc list-outside mb-4 ml-5">
+                            <li><code>git grep</code>: This command became my best friend, allowing me to search the entire 
+                                repository for every instance of the old version number and other deprecated code.
+                            </li>
+                            <li><code>git sed</code>: A command I set up with a custom alias to perform in-place text replacement, 
+                                which was invaluable for updating documentation and build scripts efficiently.
+                            </li>
+                        </ul>
+                        This process taught me not just about the compiler's dependencies, but also about the practical, 
+                        powerful ways developers manage large-scale changes in a complex codebase.
+                    </p>
+
+                    <h2 class="text-2xl font-lora mb-2">Learning the Language of Compilers</h2>
+
+                    <p class="mb-4">
+                        While upgrading LLVM, I was also on a steep learning curve, absorbing the core concepts 
+                        that make compilers tick. My weekly notes from this period are filled with new terminology and ideas.
+                    </p>
+
+                    <p class="mb-4">
+                        <b>An Intermediate Representation (IR)</b>, I learned, is the language a compiler uses internally to represent 
+                        code after it has been parsed but before it's converted to machine code. MLIR is a framework for creating these IRs.
+                    </p>
+
+                    <h3>Learning the Language of Compilers</h3>
+
+                    <p class="mb-4">Upgrading LLVM wasn't just a mechanical task of find-and-replace; 
+                        it was a deep-dive immersion into the very heart of compiler engineering. 
+                        To work on a project of this scale, I had to learn the tools and concepts 
+                        that developers use to manage complexity and squeeze out every drop of performance.
+                    </p>
+
+                    <hr class="my-4 border-gray-300">
+
+                    <h4 class="text-xl font-lora mb-2">The Build System: CMake and Ninja</h4>
+
+                    <p class="mb-4">Before you can even compile a compiler, you have to... compile the compiler. 
+                        A massive project like LLVM is composed of millions of lines of code across thousands 
+                        of files. Building it is a complex process managed by a 
+                        <strong>build system</strong>.
+                    </p>
+
+                    <p class="mb-4">During my work, I became familiar with two key tools: <strong>CMake</strong> and <strong>Ninja</strong>. 
+                        They work together as a team:
+                    </p>
+
+                    <ul class="list-disc list-outside mb-4 ml-5">
+                        <li><strong>CMake</strong> is a "meta-build system." It doesn't compile the code itself. Instead, it reads a set of configuration 
+                            files (<code>CMakeLists.txt</code>) and generates the actual build files tailored for your specific operating system and environment.
+                        </li>
+                        <li><strong>Ninja</strong> is a small, efficient build system that is obsessed with speed. CMake generates Ninja build files, 
+                            and then you run Ninja to execute the build. It's incredibly fast at figuring out which files need to be recompiled, 
+                            making the development cycle much quicker.
+                        </li>
+                    </ul>
+                    <p class="mb-4">Mastering this workflow was essential for building LLVM locally on my machine, which was a 
+                        necessary step to test and verify the version upgrade.
+                    </p>
+
+                    <h4 class="text-xl font-lora mb-2">Intermediate Representation</h4>
+
+                    <p class="mb-4">I quickly learned that compilers don't work directly with the source code we write. 
+                        They first convert it into an <strong>Intermediate Representation (IR)</strong>. The IR is the compiler's native language, a structured format that's easier to analyze and transform than raw source code.</p>
+
+                    <p class="mb-4">In the eyes of the compiler, every piece of the IR—every instruction, every variable type—is a distinct 'object'. This structured view is what allows the compiler to perform powerful analyses and optimizations on the code.</p>
+
+                    <h4 class="text-xl font-lora mb-2">Dataflow Analysis: Understanding the Code's Journey</h4>
+
+                    <p class="mb-4">One of the most powerful analyses a compiler performs is called <strong>dataflow analysis</strong>. The best analogy I learned is to think of it like tracing variables in your head as you read a function. The compiler does the same thing, but with mathematical rigor.</p>
+
+                    <p class="mb-4">For example, if the compiler sees this code:</p>
+                    <pre class="bg-gray-100 p-3 rounded mb-4 overflow-x-auto"><code>x = 5;
+y = x + 2;
+z = 7;</code></pre>
+                    <p class="mb-4">Through dataflow analysis, the compiler can determine that <code>y</code> will always be <code>7</code>. This allows it to perform optimizations like "constant propagation," replacing <code>y</code> with <code>7</code> everywhere else in the program, making the code smaller and faster.</p>
+
+                    <h4 class="text-xl font-lora mb-2">A Lesson in Performance: LLVM's Custom Type Casting</h4>
+
+                    <p class="mb-4">In a compiler, you are constantly working with different kinds of IR "objects." You might have a pointer to an object and need to know, "Is this an addition instruction? Is it a qubit type? Is it something else?"</p>
+
+                    <p class="mb-4">In standard C++, this is often handled by a feature called Run-Time Type Information (RTTI), using tools like <code>dynamic_cast</code>. However, RTTI can be slow, as it often involves looking up information in metadata tables. For a high-performance project like LLVM, that overhead is unacceptable. So, the LLVM developers built their own, faster system for type casting.</p>
+
+                    <p class="mb-4">Here are the key tools I learned to use:</p>
+                    <ul class="list-disc list-outside mb-4 ml-5">
+                        <li><code>llvm::isa&lt;Type&gt;(obj)</code>: This is the "is a" check. It returns true or false. It's perfect for conditional logic. For example: <code>if (llvm::isa&lt;qcirc::QubitType&gt;(some_value)) { ... }</code> checks if <code>some_value</code> is a qubit type.</li>
+                        <li><code>llvm::cast&lt;Type&gt;(obj)</code>: This is the "assertive" cast. It assumes you already know the object is the correct type and performs a fast conversion. If you're wrong, the program crashes. It's used when you are certain of the type, for maximum speed.</li>
+                        <li><code>llvm::dyn_cast&lt;Type&gt;(obj)</code>: This is the safe, dynamic cast. It checks the type and, if it matches, returns a valid pointer. If it doesn't match, it returns a null pointer. This is the most common and safest choice when you're not 100% certain of an object's type.</li>
+                    </ul>
+
+                    <p class="mb-4">This attention to detail—creating a custom, high-speed type-checking system—was a perfect illustration of the performance-first mindset that permeates compiler development. It showed me that in this field, even the smallest details matter.</p>
+
+
+                </section>
+                <footer class="mt-auto">
+                    <a href="../index.html" class="text-blue-500 hover:underline">Back to Home</a>
+                </footer>
+            </article>
+        </main>
+    </div>
+</body>
+
+</html>
