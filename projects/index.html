@@ -28,23 +28,38 @@
         <!-- Qwerty -->
         <article class="relative border border-gray-200 rounded-2xl p-4 shadow-lg bg-white/60 backdrop-blur-md">
           <div class="flex flex-col">
-            <img src="../assets/project_img/qwerty_preview.png" alt="Qwerty preview" class="w-full h-56 object-cover rounded-lg mb-4 bg-gray-200" loading="lazy" />
+            <img src="../assets/project_img/qwerty_preview.png" alt="Qwerty preview" class="w-full h-56 object-contain rounded-lg mb-4 bg-white p-2" loading="lazy" />
             <h2 class="text-2xl font-semibold mb-1">
               <a href="https://github.com/jaeHbk/qwerty" class="text-blue-500 hover:underline">Qwerty</a>
             </h2>
-            <p class="text-sm mb-3">Worked on a quantum compiler.</p>
+            <p class="text-sm mb-3"><strong>Qwerty</strong> is a compiler modernization effort where I upgraded the core LLVM dependency and designed a new MLIR dialect, <strong>Ccirc</strong>, to natively represent classical circuits—fully replacing the deprecated Tweedledum library with a compiler-native pipeline. The dialect introduces strong typing with custom types like <code>WireType</code> and <code>CircuitType</code> (e.g., <code>WireType</code> is only valid with classical gates), provides first-class operations for classical logic such as <code>AndOp</code>, <code>OrOp</code>, <code>XorOp</code>, and <code>NotOp</code>, and includes canonicalization that simplifies expressions; for instance, two consecutive <code>ccirc.not</code> operations collapse back to the original value. The new backend flow lowers classical code into Ccirc, optimizes directly on that representation, and then lowers through LLVM IR to produce QIR, eliminating the previous black‑box handoff to Tweedledum and making the system faster and easier to debug.</p>
             <div class="text-sm text-gray-400">Built with: <span class="text-blue-500 hover:underline">MLIR</span>, <span class="text-blue-500 hover:underline">LLVM</span>, <span class="text-blue-500 hover:underline">CMake</span>, <span class="text-blue-500 hover:underline">C++</span></div>
           </div>
         </article>
 
+        <!-- Finch-Python -->
+        <article class="relative border border-gray-200 rounded-2xl p-4 shadow-lg bg-white/60 backdrop-blur-md">
+            <div class="flex flex-col">
+              <img src="../assets/project_img/einsum.png" alt="einsum preview" class="w-full h-56 object-contain rounded-lg mb-4 bg-white p-2" loading="lazy" />
+              <h2 class="text-2xl font-semibold mb-1"><a href="#" class="text-blue-500 hover:underline">Finch-Python</a></h2>
+              <p class="text-sm mb-3">I am developing an einsum-style macro for the Finch tensor system in Python. 
+                  The project involves designing a custom parser and grammar for Einstein summation notation, 
+                  enabling expressive, optimized array and tensor operations that compile directly to Finch’s backend. 
+                  This work bridges mathematical expressiveness with high-performance computation.</p>
+              <div class="text-sm text-gray-400">Built with: <span class="text-blue-500 hover:underline">Python</span>, <span class="text-blue-500 hover:underline">Julia</span>
+            </div>
+          </article>
+
         <!-- Nomad -->
         <article class="relative border border-gray-200 rounded-2xl p-4 shadow-lg bg-white/60 backdrop-blur-md">
           <div class="flex flex-col">
-            <img src="../assets/project_img/nomad_preview.png" alt="Nomad preview" class="w-full h-56 object-cover rounded-lg mb-4 bg-gray-200" loading="lazy" />
+            <img src="../assets/project_img/nomad_preview.png" alt="Nomad preview" class="w-full h-56 object-contain rounded-lg mb-4 bg-white p-2" loading="lazy" />
             <h2 class="text-2xl font-semibold mb-1">
               <a href="https://github.com/gtiosclub/Nomad" class="text-blue-500 hover:underline">Nomad</a>
             </h2>
-            <p class="text-sm mb-3">Implemented MapKit and optimal route calculation based on user's customized route.</p>
+            <p class="text-sm mb-3">
+                For the <strong>Nomad</strong> project, a mobile app designed to make trip planning and navigation easier, I worked on three key features: <strong>route time calculations</strong>, <strong>voice‑guided directions</strong>, and a smart <strong>address search</strong> tool. For route time calculations, I created a function in the <strong>MapManager</strong> that takes each step of a journey (like “turn left in 0.2 miles”), looks at its expected travel time, and aggregates durations to give users a clear ETA. To make navigation safer and hands‑free, I built a voice guidance system using Apple’s <strong>AVFoundation</strong> framework—this manager turns route instructions into <strong>spoken directions</strong> and adds a simple toggle in the map view so users can switch voice commands on or off. I also developed an <strong>address search engine</strong> that makes it easy to find places quickly. By combining <strong>MapKit</strong> and <strong>CoreLocation</strong>, the app suggests locations as users type, autocompletes addresses, and converts map coordinates into full address strings. Altogether, these features make Nomad more accurate, intuitive, and user‑friendly for anyone planning a trip.
+           </p>
             <div class="text-sm text-gray-400">Built with: <span class="text-blue-500 hover:underline">Swift</span>, <span class="text-blue-500 hover:underline">MapKit</span></div>
           </div>
         </article>
@@ -52,58 +67,29 @@
         <!-- Agricultural Productivity Forecast -->
         <article class="relative border border-gray-200 rounded-2xl p-4 shadow-lg bg-white/60 backdrop-blur-md">
           <div class="flex flex-col">
-            <img src="../assets/project_img/agriculture_preview.png" alt="Agricultural Productivity Forecast preview" class="w-full h-56 object-cover rounded-lg mb-4 bg-gray-200" loading="lazy" />
+            <img src="../assets/project_img/agriculture_preview.png" alt="Agricultural Productivity Forecast preview" class="w-full h-56 object-contain rounded-lg mb-4 bg-white p-2" loading="lazy" />
             <h2 class="text-2xl font-semibold mb-1">
               <a href="#" class="text-blue-500 hover:underline">Agricultural Productivity Forecast</a>
             </h2>
-            <p class="text-sm mb-3">
-                <strong>Frontend (Google Maps API)</strong>
-                <ul class="list-disc list-outside mb-3 ml-5">
-                    <li>The user interacts with a frontend that enables selection of a bounding box region.</li>
-                </ul>
-            </p>
-
-            <p class="text-sm mb-3">
-                <strong>Backend Service</strong>
-                
-                <ul class="list-disc list-outside mb-4 ml-5">
-                    <li>Tiling Module (tiling.py): Reads tiling data (from a text file) and computes intersections with the selected geographic area.</li>
-                    <li>Product Query Module (productquery.py): Queries the Copernicus Data Catalogue (via the OData API) for products matching the area, date (including day filtering), and cloud cover criteria.</li>
-                    <li>Download Module (S3 Download): Uses the temporary S3 credentials retrieved via the S3 Keys Manager Service to download satellite imagery from the EO Data S3 storage using boto3.</li>
-                    <li>ML Model Analysis Module: After downloading, the imagery can be processed by ML models for analysis.</li>
-                </ul>
-            </p>
-
-            <p class="text-sm mb-3">
-                <strong>External Services</strong>
-                <ul class="list-disc list-outside mb-4 ml-5">
-                    <li>Copernicus Data Catalogue (OData API): Provides product metadata based on geographic and temporal queries.</li>
-                    <li>Authentication Server (CDSE Identity): Provides access tokens required for querying product metadata and obtaining S3 credentials.</li>
-                    <li>S3 Keys Manager Service: Issues temporary S3 credentials.</li>
-                    <li>EO Data Storage (S3): Stores the satellite imagery that is downloaded.</li>
-                </ul>
-            </p>
-
-            <p class="text-sm mb-3">
-                <strong>Local Storage</strong>
-                <ul class="list-disc list-outside mb-4 ml-5">
-                    <li>Downloaded imagery is saved into a local folder structure, organized by year, month, and tile, which can then be passed to downstream processes (e.g., ML analysis).</li>
-                </ul>
-            </p>
+            <p class="text-sm mb-3">This system forecasts agricultural productivity end‑to‑end: a <strong>Google Maps</strong>–based frontend lets users draw a bounding box, which the backend converts into tile intersections before querying the <strong>Copernicus Data Catalogue</strong> (via OData) for imagery filtered by area, date (including day‑level filters), and cloud cover. With temporary <strong>S3</strong> credentials issued by the <strong>S3 Keys Manager Service</strong> and <strong>CDSE</strong> identity, the pipeline downloads the matching EO products from S3 using <strong>boto3</strong>, optionally runs ML analysis over the results, and organizes the data locally by year, month, and tile for downstream processing. Core modules include <strong>tiling</strong> (<code>tiling.py</code>), <strong>product querying</strong> (<code>productquery.py</code>), and an <strong>S3 download</strong> stage; key external services include the Copernicus catalogue, authentication, keys management, and EO data storage.</p>
 
             <div class="text-sm text-gray-400">Built with: <span class="text-blue-500 hover:underline">Python</span>, <span class="text-blue-500 hover:underline">AWS</span>, <span class="text-blue-500 hover:underline">EOData API</span></div>
           </div>
         </article>
 
         <!-- Placeholder projects copied from main (if any remain) -->
-        <article class="relative border border-gray-200 rounded-2xl p-4 shadow-lg bg-white/60 backdrop-blur-md">
+
+        <!--<article class="relative border border-gray-200 rounded-2xl p-4 shadow-lg bg-white/60 backdrop-blur-md">
           <div class="flex flex-col">
-            <img src="https://via.placeholder.com/800x400?text=Project" alt="Project preview" class="w-full h-56 object-cover rounded-lg mb-4 bg-gray-200" loading="lazy" />
-            <h2 class="text-2xl font-semibold mb-1"><a href="#" class="text-blue-500 hover:underline">Project</a></h2>
-            <p class="text-sm mb-3">A short description of the project goes here.</p>
+            <img src="../assets/project_img/einsum.png" alt="einsum preview" class="w-full h-56 object-contain rounded-lg mb-4 bg-white p-2" loading="lazy" />
+            <h2 class="text-2xl font-semibold mb-1"><a href="#" class="text-blue-500 hover:underline">Finch-Python</a></h2>
+            <p class="text-sm mb-3">I am developing an einsum-style macro for the Finch tensor system in Python. 
+                Description goes here
+            </p>
             <div class="text-sm text-gray-400">Built with: <span class="text-blue-500 hover:underline">HTML</span>, <span class="text-blue-500 hover:underline">CSS</span>, <span class="text-blue-500 hover:underline">JavaScript</span></div>
           </div>
-        </article>
+        </article> -->
+
       </div>
     </section>
   </div>
