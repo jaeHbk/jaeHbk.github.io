@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jaehun Baek</title>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <script src="floating-image.js"></script>
 
     <!-- Style Links -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -24,10 +23,10 @@
 
 <body class="overflow-y-scroll">
     <div class="flex min-h-screen">
-        <div class="bg-white flex flex-col fixed w-2/5 h-screen">
-            <a href="./index.html" class="block w-full shrink-0">
-                <div id="sketch-holder" class="m-0 p-0"></div>
-            </a>
+        <div class="bg-white flex flex-col fixed w-2/5 h-screen z-30">
+            <div class="flex-1 min-h-0 w-full flex flex-col">
+                <div id="sketch-holder" class="m-0 p-0 relative w-full flex-1 min-h-[72vh]" style="position:relative;overflow:hidden;width:100%;background-color:#ffffff"></div>
+            </div>
             <div class="p-5">
                 <h1 class="mb-3 text-5xl font-lora">Jaehun Baek</h1>
                 <nav class="text-lg">
@@ -201,7 +200,8 @@
         </div>
     </div>
 
-    
+    <script src="https://cdn.jsdelivr.net/npm/p5@1.11.2/lib/p5.min.js"></script>
+    <script src="perlin-lines.js"></script>
 </body>
 
 </html>
