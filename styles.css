@@ -10,7 +10,8 @@ body {
 
 #sketch-holder {
     background-color: #f3f4f6;
-    height: 40%;
+    /* Percentage height needs a definite parent; use viewport min so the hero area is always visible */
+    min-height: 40vh;
 }
 
 /* Ensure sidebar background is white even with utility frameworks */
