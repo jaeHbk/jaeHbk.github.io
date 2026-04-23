@@ -25,6 +25,31 @@
     <!-- Projects Grid -->
     <section class="w-10/12 max-w-5xl mx-auto mb-12">
       <div class="grid gap-6 md:grid-cols-2">
+
+        <!-- ColombiAsk -->
+        <article class="relative border border-gray-200 rounded-2xl p-4 shadow-lg bg-white/60 backdrop-blur-md">
+          <div class="flex flex-col">
+            <img src="../assets/project_img/colombiask_preview.png" alt="ColombiAsk preview" class="w-full h-56 object-contain rounded-lg mb-4 bg-white p-2" loading="lazy" />
+            <h2 class="text-2xl font-semibold mb-1">
+              <a href="https://codigo.biosci.gatech.edu/" class="text-blue-500 hover:underline">ColombiAsk (Coming Soon!)</a>
+            </h2>
+            <p class="text-sm mb-3">Developed a robust <strong>Query History Logger</strong> for <strong>ColombiAsk</strong>, a natural language interface for the CÓDIGO genetic variant database, to enable systematic benchmarking and performance auditing of LLM-generated queries. Using Python <code>logging</code> and <code>json</code>, the system captures a comprehensive audit trail of the Llama <code>3.1</code>-driven pipeline, including generated PostgreSQL syntax, execution rationale, and retrieval metrics such as row counts and latency. This infrastructure is critical for delivering researcher-grade genomic insights, since it supports side-by-side accuracy comparisons across model scales (for example, <code>8B</code> vs. <code>70B</code>) and improves transparency for complex joins executed on Georgia Tech's <strong>PACE</strong> supercomputing cluster. By centralizing model configurations and SQL outputs into structured, date-stamped logs, I streamlined debugging for multi-turn SQL generation and created a scalable foundation for a known-good test set that ensures fully auditable interactions with high-stakes genetic data.</p>
+            <div class="text-sm text-gray-400">Built with: <span class="text-blue-500 hover:underline">Python</span>, <span class="text-blue-500 hover:underline">Llama 3.1</span>, <span class="text-blue-500 hover:underline">PostgreSQL</span>, <span class="text-blue-500 hover:underline">JSON Logging</span></div>
+          </div>
+        </article>
+
+        <!-- BrokerCheck Scraper -->
+        <article class="relative border border-gray-200 rounded-2xl p-4 shadow-lg bg-white/60 backdrop-blur-md">
+          <div class="flex flex-col">
+            <img src="../assets/project_img/brokercheck_preview.png" alt="BrokerCheck preview" class="w-full h-56 object-contain rounded-lg mb-4 bg-white p-2" loading="lazy" />
+            <h2 class="text-2xl font-semibold mb-1">
+              <a href="https://github.com/jaeHbk/brokercheck-scraper" class="text-blue-500 hover:underline">BrokerCheck-Scraper</a>
+            </h2>
+            <p class="text-sm mb-3"><strong>FINRA BrokerCheck API Scraper</strong> is a high-performance data extraction utility developed in Go that reverse-engineers the internal BrokerCheck API to gather comprehensive individual broker data. By targeting the <code>https://api.brokercheck.finra.org/search/individual</code> endpoint, the script performs searches based on latitude and longitude coordinates rather than zip codes, fetching results within a defined search radius. The implementation uses a concurrent worker-pool architecture with Go <code>sync</code> and channel primitives to scale data collection across multiple geographic points loaded from <code>uszips.csv</code>. To manage large-scale scraping, the code handles automatic pagination based on API hits, includes retry with backoff for HTTP <code>429</code> rate limits and <code>5xx</code> server errors, and deduplicates records with a Go map keyed by unique <code>CRD</code> identifiers. The final dataset is exported in both JSON and CSV formats for flexible downstream analysis, while maintaining a minimal footprint by relying exclusively on the Go standard library for networking, JSON unmarshaling, and CSV serialization.</p>
+            <div class="text-sm text-gray-400">Built with: <span class="text-blue-500 hover:underline">Go</span>, <span class="text-blue-500 hover:underline">Go stdlib</span>, <span class="text-blue-500 hover:underline">HTTP/JSON</span>, <span class="text-blue-500 hover:underline">CSV</span></div>
+          </div>
+        </article>
+
         <!-- Qwerty -->
         <article class="relative border border-gray-200 rounded-2xl p-4 shadow-lg bg-white/60 backdrop-blur-md">
           <div class="flex flex-col">
@@ -32,8 +57,18 @@
             <h2 class="text-2xl font-semibold mb-1">
               <a href="https://github.com/jaeHbk/qwerty" class="text-blue-500 hover:underline">Qwerty</a>
             </h2>
-            <p class="text-sm mb-3"><strong>Qwerty</strong> is a compiler modernization effort where I upgraded the core LLVM dependency and designed a new MLIR dialect, <strong>Ccirc</strong>, to natively represent classical circuits—fully replacing the deprecated Tweedledum library with a compiler-native pipeline. The dialect introduces strong typing with custom types like <code>WireType</code> and <code>CircuitType</code> (e.g., <code>WireType</code> is only valid with classical gates), provides first-class operations for classical logic such as <code>AndOp</code>, <code>OrOp</code>, <code>XorOp</code>, and <code>NotOp</code>, and includes canonicalization that simplifies expressions; for instance, two consecutive <code>ccirc.not</code> operations collapse back to the original value. The new backend flow lowers classical code into Ccirc, optimizes directly on that representation, and then lowers through LLVM IR to produce QIR, eliminating the previous black‑box handoff to Tweedledum and making the system faster and easier to debug.</p>
+            <p class="text-sm mb-3"><strong>Qwerty</strong> is a compiler modernization effort where I upgraded the core LLVM dependency and designed a new MLIR dialect, <strong>Ccirc</strong>, to natively represent classical circuits-fully replacing the deprecated Tweedledum library with a compiler-native pipeline. The dialect introduces strong typing with custom types like <code>WireType</code> and <code>CircuitType</code> (e.g., <code>WireType</code> is only valid with classical gates), provides first-class operations for classical logic such as <code>AndOp</code>, <code>OrOp</code>, <code>XorOp</code>, and <code>NotOp</code>, and includes canonicalization that simplifies expressions; for instance, two consecutive <code>ccirc.not</code> operations collapse back to the original value. The new backend flow lowers classical code into Ccirc, optimizes directly on that representation, and then lowers through LLVM IR to produce QIR, eliminating the previous black-box handoff to Tweedledum and making the system faster and easier to debug.</p>
             <div class="text-sm text-gray-400">Built with: <span class="text-blue-500 hover:underline">MLIR</span>, <span class="text-blue-500 hover:underline">LLVM</span>, <span class="text-blue-500 hover:underline">CMake</span>, <span class="text-blue-500 hover:underline">C++</span></div>
+          </div>
+        </article>
+
+        <!-- Finch-Python -->
+        <article class="relative border border-gray-200 rounded-2xl p-4 shadow-lg bg-white/60 backdrop-blur-md">
+          <div class="flex flex-col">
+            <img src="../assets/project_img/transitive_reduction.png" alt="transitive reduction preview" class="w-full h-56 object-contain rounded-lg mb-4 bg-white p-2" loading="lazy" />
+            <h2 class="text-2xl font-semibold mb-1"><a href="#" class="text-blue-500 hover:underline">Transitive Reduction Algorithm</a></h2>
+            <p class="text-sm mb-3">The implementation of the <strong>diBELLA transitive reduction</strong> algorithm within the Sparse Application Benchmark project serves as a high-fidelity workload for evaluating sparse array programming frameworks. Written in a minimalist array-programming style, the algorithm maps complex graph simplification into linear algebra operations over 2D distributed sparse matrices. It uses a custom stack built around the <strong>Array API</strong> and a specialized tensor-expression compiler with a Lark-based parser for flexible <code>einsum</code> execution. At its core, the method performs sparse matrix-matrix multiplication (<strong>SpGEMM</strong>) over a <code>(min, +)</code> semiring, squaring the matrix (<code>N = R^2</code>) to find shortest two-hop paths and remove redundant overlaps. This iterative reduction is central to benchmarking auto-scheduling decisions because it stresses both communication-heavy execution and geometrically decreasing sparsity. Performance results show near-linear scaling, over 80% parallel efficiency on large datasets such as the human genome, and speedups of <code>10.5x</code> to <code>29x</code> versus traditional distributed-memory graph processing implementations.</p>
+            <div class="text-sm text-gray-400">Built with: <span class="text-blue-500 hover:underline">Array API</span>, <span class="text-blue-500 hover:underline">SpGEMM (min,+)</span>, <span class="text-blue-500 hover:underline">Lark Parser</span>, <span class="text-blue-500 hover:underline">Tensor Expression Compiler</span></div>
           </div>
         </article>
 
@@ -42,7 +77,7 @@
             <div class="flex flex-col">
               <img src="../assets/project_img/einsum.png" alt="einsum preview" class="w-full h-56 object-contain rounded-lg mb-4 bg-white p-2" loading="lazy" />
               <h2 class="text-2xl font-semibold mb-1"><a href="#" class="text-blue-500 hover:underline">Finch-Python</a></h2>
-              <p class="text-sm mb-3">I am developing an einsum-style macro for the Finch tensor system in Python. 
+              <p class="text-sm mb-3">I have developed an einsum-style macro for the Finch tensor system in Python. 
                   The project involves designing a custom parser and grammar for Einstein summation notation, 
                   enabling expressive, optimized array and tensor operations that compile directly to Finch’s backend. 
                   This work bridges mathematical expressiveness with high-performance computation.</p>
